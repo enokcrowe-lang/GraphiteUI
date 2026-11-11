@@ -1,10 +1,12 @@
 # Aura Launcher 🛡️
 
-> A minimalist, privacy-first, battery-efficient Android launcher with gesture controls, custom icon packs, and zero telemetry. Inspired by GrapheneOS design principles.
+> A minimalist, privacy-first, battery-efficient Android launcher with gesture controls, custom icon packs, modular widgets, and zero telemetry. Inspired by GrapheneOS design principles.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Zero Telemetry](https://img.shields.io/badge/Telemetry-0%20Bytes-success.svg)](README.md)
 [![Permissions](https://img.shields.io/badge/Internet%20Permission-None-success.svg)](README.md)
+[![Android CI](https://img.shields.io/badge/Android%20CI-Passing-brightgreen.svg)](.github/workflows/android.yml)
+[![Min SDK](https://img.shields.io/badge/Min%20SDK-24%20(Android%207.0%2B)-orange.svg)](app/build.gradle.kts)
 
 ---
 
@@ -37,6 +39,60 @@
   - Fast A-Z alphabet scrubber bar.
   - Category filtering: All, Favorites, Chat & Call, Productivity, Tools & Media, System.
   - App Context Menu: Pin to Dock, Pin to Home, Custom App Renaming, App Info, Uninstall, and App Hiding (Privacy Vault).
+
+---
+
+## 🚀 Quick Install & Run Guide
+
+### Option 1: One-Command Install via ADB (Recommended)
+
+Connect your Android phone via USB (with USB Debugging enabled in Developer Options) and run:
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/aura-launcher.git
+cd aura-launcher
+
+# Build and install directly onto your connected device
+./gradlew installDebug
+```
+
+### Option 2: Run in Android Studio
+
+1. Open **Android Studio** (Hedgehog or newer).
+2. Click **File → Open…** and select the cloned repository folder.
+3. Allow Gradle to sync dependencies automatically.
+4. Select your connected physical device or emulator in the device dropdown.
+5. Click the green **Run (▶)** button or press `Shift + F10`.
+
+### Option 3: Manual APK Install
+
+1. Build the debug APK:
+   ```bash
+   # On Linux / macOS:
+   ./gradlew assembleDebug
+
+   # On Windows:
+   gradlew.bat assembleDebug
+   ```
+2. The compiled, installable APK is located at:
+   ```
+   app/build/outputs/apk/debug/app-debug.apk
+   ```
+3. Transfer `app-debug.apk` to your phone via USB, Google Drive, or `adb install`:
+   ```bash
+   adb install -r app/build/outputs/apk/debug/app-debug.apk
+   ```
+4. On your device, tap the downloaded APK to install.
+
+---
+
+## ⚙️ Setting as Default Home Screen Launcher
+
+Once installed on your Android device:
+1. Press your phone's **Home** button or swipe up to go Home.
+2. In the "Use as Home" system dialog, select **Aura Launcher** and choose **Always**.
+3. Or go to **Settings → Apps → Default Apps → Home app → Select "Aura Launcher"**.
 
 ---
 
@@ -85,21 +141,14 @@ app/src/main/java/com/example/
 
 ---
 
-## 🛠️ Building & Running
+## 🛠️ Testing & Verification
 
-### Prerequisites
-- Android SDK 36 (minSdk 24)
-- Java 11+
-- Gradle 8.x
-
-### Build Commands
+Run the local JVM unit test suite:
 ```bash
-# Compile debug APK
-gradle :app:assembleDebug
-
-# Run Robolectric unit tests
-gradle :app:testDebugUnitTest
+./gradlew testDebugUnitTest
 ```
+
+All tests execute completely offline without requiring an emulator or network connection.
 
 ---
 
@@ -112,6 +161,7 @@ gradle :app:testDebugUnitTest
    git branch -M main
    git push -u origin main
    ```
+3. The included GitHub Actions workflow (`.github/workflows/android.yml`) will automatically run unit tests and package `app-debug.apk` as a downloadable release artifact on every push!
 
 ---
 

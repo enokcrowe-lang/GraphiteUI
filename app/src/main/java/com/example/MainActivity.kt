@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ui.home.HomeScreen
 import com.example.ui.theme.MyApplicationTheme
@@ -20,7 +21,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            val viewModel: LauncherViewModel = viewModel()
+            val viewModel: LauncherViewModel = viewModel(
+                factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+            )
             val preferences by viewModel.preferences.collectAsState()
 
             MyApplicationTheme(
@@ -36,6 +39,5 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Refresh battery and app list when returning to Home screen
     }
 }

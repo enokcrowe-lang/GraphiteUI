@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class LauncherViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val context: Context get() = getApplication<Application>().applicationContext
+    private val context: Context = application.applicationContext
 
     val preferencesRepository = LauncherPreferencesRepository(context)
     val installedAppRepository = InstalledAppRepository(context)
@@ -104,19 +104,27 @@ class LauncherViewModel(application: Application) : AndroidViewModel(application
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     init {
-        loadData()
-        batteryMonitor.startListening()
+        try {
+            loadData()
+            batteryMonitor.startListening()
+        } catch (_: Exception) {}
     }
 
     override fun onCleared() {
         super.onCleared()
-        batteryMonitor.stopListening()
+        try {
+            batteryMonitor.stopListening()
+        } catch (_: Exception) {}
     }
 
     fun loadData() {
         viewModelScope.launch {
-            installedAppRepository.syncInstalledAppsFromDevice()
-            _installedIconPacks.value = iconPackManager.getInstalledIconPacks()
+            try {
+                installedAppRepository.syncInstalledAppsFromDevice()
+            } catch (_: Exception) {}
+            try {
+                _installedIconPacks.value = iconPackManager.getInstalledIconPacks()
+            } catch (_: Exception) {}
         }
     }
 
@@ -157,7 +165,9 @@ class LauncherViewModel(application: Application) : AndroidViewModel(application
 
     fun launchApp(app: AppItem) {
         viewModelScope.launch {
-            installedAppRepository.recordAppLaunch(app.packageName)
+            try {
+                installedAppRepository.recordAppLaunch(app.packageName)
+            } catch (_: Exception) {}
         }
 
         try {
@@ -267,25 +277,33 @@ class LauncherViewModel(application: Application) : AndroidViewModel(application
 
     fun togglePinDock(packageName: String) {
         viewModelScope.launch {
-            installedAppRepository.togglePinDock(packageName)
+            try {
+                installedAppRepository.togglePinDock(packageName)
+            } catch (_: Exception) {}
         }
     }
 
     fun togglePinHome(packageName: String) {
         viewModelScope.launch {
-            installedAppRepository.togglePinHome(packageName)
+            try {
+                installedAppRepository.togglePinHome(packageName)
+            } catch (_: Exception) {}
         }
     }
 
     fun toggleHideApp(packageName: String) {
         viewModelScope.launch {
-            installedAppRepository.toggleHideApp(packageName)
+            try {
+                installedAppRepository.toggleHideApp(packageName)
+            } catch (_: Exception) {}
         }
     }
 
     fun setCustomLabel(packageName: String, label: String) {
         viewModelScope.launch {
-            installedAppRepository.setCustomLabel(packageName, label)
+            try {
+                installedAppRepository.setCustomLabel(packageName, label)
+            } catch (_: Exception) {}
         }
     }
 
