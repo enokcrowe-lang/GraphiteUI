@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Aura Launcher</string>
+    <string name="launcher_settings">Launcher Settings</string>
+    <string name="search_apps_hint">Search apps…</string>
+    <string name="gesture_swipe_up">Swipe Up</string>
+    <string name="gesture_swipe_down">Swipe Down</string>
+    <string name="gesture_double_tap">Double Tap</string>
+    <string name="gesture_pinch_in">Pinch In</string>
+    <string name="privacy_dashboard_title">Privacy &amp; Battery Shield</string>
+    <string name="zero_telemetry_guarantee">100% Offline &amp; Zero Telemetry</string>
+    <string name="dock_title">Favorites Dock</string>
+    <string name="icon_pack_title">Icon Pack</string>
+    <string name="hidden_apps_title">Hidden Apps</string>
+    <string name="monochrome_filter_title">Monochrome Theme</string>
+</resources>

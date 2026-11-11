@@ -1,0 +1,6 @@
+{
+  "name": "Aura Launcher",
+  "description": "A minimalist, privacy-first, battery-efficient Android launcher with gesture controls, custom icon packs, and zero telemetry.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
